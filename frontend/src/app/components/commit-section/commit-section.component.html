@@ -1,0 +1,21 @@
+<div class="w-full h-full space-y-2 p-2 border-t border-t-black bg-[#303845]">
+    <div class="flex space-x-2 items-center">
+        <div class="size-10 rounded-full overflow-hidden">
+            <img src="https://avatars.githubusercontent.com/u/134627721?v=4&size=64" class="w-full h-full" alt="" srcset="">
+        </div>
+        <input type="text" placeholder="Summary (Required)" class="w-[85%] bg-[#303845]" pInputText
+            [(ngModel)]="commitMessage" />
+    </div>
+    <div class="w-full">
+        <textarea rows="4" cols="30" class="w-full h-[50%]!" placeholder="Description" pTextarea
+            [(ngModel)]="description"></textarea>
+    </div>
+    <button [disabled]="!commitMessage" (click)="addCommit()"
+        [ngClass]="!commitMessage ? 'bg-blue-500 opacity-50' : 'bg-blue-500'"
+        class="w-full p-2 rounded-md text-sm min-w-0">
+        <span class="block overflow-hidden whitespace-nowrap text-ellipsis">
+            Commit 2 files to
+            <span class="font-semibold">feature/addition-details</span>
+        </span>
+    </button>
+</div>

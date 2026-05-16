@@ -15,7 +15,8 @@
     </div>
 
     <div class="w-full h-[calc(100%-2.5rem)]">
-        <changes-pannel></changes-pannel>
+        @if (activeTab=='CHANGES') {<changes-pannel></changes-pannel>}
+        @if (activeTab=='HISTORY') {<history-pannel></history-pannel>}
     </div>
 
 
