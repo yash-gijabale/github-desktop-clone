@@ -1,0 +1,19 @@
+<div class="w-full h-full">
+    <!-- SEARCH BAR -->
+    <div class="w-full p-2 bg-[#303845] border-b border-black space-y-1">
+        <input type="text" placeholder="Filter" class="w-full bg-[#303845]" pInputText [(ngModel)]="searchFiles" />
+        <div class="flex items-center">
+            <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+            <label for="ingredient1" class="ml-2"> 2 changed files </label>
+        </div>
+    </div>
+
+    <!-- CHNAGES FILES LIST -->
+    <div class="flex w-full flex-col h-[55%] bg-red-200">
+        <changes-file-card class="w-full"></changes-file-card>
+        <changes-file-card class="w-full"></changes-file-card>
+        <changes-file-card class="w-full"></changes-file-card>
+    </div>
+
+    <!-- COMMIT AREA -->
+</div>
