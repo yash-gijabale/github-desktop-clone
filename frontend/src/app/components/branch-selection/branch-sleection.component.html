@@ -1,0 +1,83 @@
+<div class="w-full h-full relative">
+    <div role="button" (click)="toggleDropdown()"
+        class="w-full flex justify-between items-center border-r border-r-black h-full px-2 text-white">
+        <div class="flex items-center space-x-2 h-full">
+            <div class=" text-xl"><i class="fa-solid fa-code-branch"></i></div>
+            <div class="flex flex-col justify-center leading-6">
+                <span class="text-neutral-400">Current branch</span>
+                <span class="text-md font-medium">feature/dashbaord-api</span>
+            </div>
+        </div>
+        <div><i class="fa-solid fa-caret-down"></i></div>
+    </div>
+
+    @if (isOpen) {
+    <dropdown-layout [minWidth]="'min-w-[28vw]'" (closeDropDownEvent)="handleCloseDropDownEvent($event)">
+        <div dropdwon-body>
+            <div class="w-full">
+                <tabs [tabs]="tabs" [activeTab]="activeTab" (tabChangeEvent)="activeTab=$event"></tabs>
+            </div>
+            <div class="w-full py-2">
+                <div class="flex justify-between items-center p-2 bg-neutral-600">
+                    <div class="space-x-1">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <span class="font-normal">feature/s3-ur-changes</span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-slate-200">2 Days ago</span>
+                    </div>
+                </div>
+
+                 <div class="flex justify-between items-center p-2">
+                    <div class="space-x-1">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <span class="font-normal">feature/dashboard-api</span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-slate-200">5 Days ago</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center p-2">
+                    <div class="space-x-1">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <span class="font-normal">bug-fix/kickoff-report-email-attachment</span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-slate-200">5 Days ago</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center p-2">
+                    <div class="space-x-1">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <span class="font-normal">bug-fix/kickoff-report-email-attachment</span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-slate-200">5 Days ago</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center p-2">
+                    <div class="space-x-1">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <span class="font-normal">bug-fix/kickoff-report-email-attachment</span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-slate-200">5 Days ago</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center p-2">
+                    <div class="space-x-1">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <span class="font-normal">bug-fix/kickoff-report-email-attachment</span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-slate-200">5 Days ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dropdown-layout>
+    }
+</div>

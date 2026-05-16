@@ -1,0 +1,14 @@
+<div class="w-full h-10 flex text-white select-none">
+    @for (tab of tabs; track $index) {
+    <div role="button" (click)="setTab(tab.value)" class="cursor-pointer w-1/2 flex justify-center space-x-1 items-center border-black border-r
+                    hover:bg-gray-700 duration-100 ease-in"
+        [ngClass]="activeTab == tab.value ? 'border-b-4 border-b-blue-500 ' : 'border-b' ">
+        <span>{{tab.title}}</span>
+
+        @if (tab.subTitle) {
+        <span class="px-2 py-0 text-xs rounded-full bg-neutral-600 text-white font-semibold">{{tab.subTitle}}</span>
+        }
+    </div>
+
+    }
+</div>

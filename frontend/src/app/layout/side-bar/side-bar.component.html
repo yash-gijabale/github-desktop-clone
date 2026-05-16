@@ -1,24 +1,12 @@
 <div class="h-full w-[20vw] border-r border-black">
     <!-- SIDE BAR TABS -->
-    <div class="w-full h-10 flex text-white">
-        <div role="button" (click)="setTab('CHANGES')" class="cursor-pointer w-1/2 flex justify-center space-x-1 items-center border-black border-r
-                    hover:bg-gray-700 duration-100 ease-in"
-            [ngClass]="activeTab == 'CHANGES' ? 'border-b-4 border-b-blue-500 ' : 'border-b' ">
-            <span>Changes</span>
-            <span class="px-2 py-0 text-xs rounded-full bg-neutral-600 text-white font-semibold">2</span>
-        </div>
-        <div role="button" (click)="setTab('HISTORY')"
-            class="cursor-pointer w-1/2 flex justify-center items-center border-black hover:bg-gray-700 duration-100 ease-in"
-            [ngClass]="activeTab == 'HISTORY' ? 'border-b-4 border-b-blue-500 ' : 'border-b' ">
-            History
-        </div>
-    </div>
 
+    <!-- TABS -->
+    <tabs [activeTab]="activeTab" [tabs]="tabs" (tabChangeEvent)="setTab($event)"></tabs>
+
+    <!-- CONTENTS -->
     <div class="w-full h-[calc(100%-2.5rem)]">
         @if (activeTab=='CHANGES') {<changes-pannel></changes-pannel>}
         @if (activeTab=='HISTORY') {<history-pannel></history-pannel>}
     </div>
-
-
-
 </div>
