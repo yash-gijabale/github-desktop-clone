@@ -8,7 +8,9 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
         <div class="w-full absolute  border-x border-black top-16 h-[calc(100vh-4.5rem)] z-50 bg-[#2a313c]"
         [ngClass]="minWidth"
         >
-              <ng-content select="[dropdwon-body]"></ng-content>
+                <div class="h-full">
+                    <ng-content select="[dropdwon-body]"></ng-content>
+                </div>
         </div>
     
     `,

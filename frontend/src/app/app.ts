@@ -7,7 +7,7 @@ import { LayoutComponent } from "./layout/layout.component";
   imports: [LayoutComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
-})
+})  
 export class App {
   protected readonly title = signal('frontend');
 }

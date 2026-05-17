@@ -2,18 +2,39 @@
     <div role="button" (click)="toggleDropdown()"
         class="w-full flex justify-between items-center border-r border-r-black h-full px-2 text-white">
         <div class="flex items-center space-x-2 h-full">
+            @if (repository().currentRepo) {
             <div class=" text-xl"><i class="fa-solid fa-code-branch"></i></div>
             <div class="flex flex-col justify-center leading-6">
                 <span class="text-neutral-400">Current branch</span>
-                <span class="text-md font-medium">feature/dashbaord-api</span>
+                <span class="text-md font-medium">{{repository().currentRepo?.name}}</span>
             </div>
+            }
         </div>
         <div><i class="fa-solid fa-caret-down"></i></div>
     </div>
 
     @if (isOpen) {
-        <dropdown-layout (closeDropDownEvent)="handleCloseDropDownEvent($event)">
-            <div dropdwon-body>hhh</div>
-        </dropdown-layout>
+    <dropdown-layout (closeDropDownEvent)="handleCloseDropDownEvent($event)">
+        <div dropdwon-body class="w-full">
+            <div class="w-full flex p-2 justify-between space-x-2">
+                <input type="text" placeholder="Filter" class="w-full h-7 bg-[#303845]" pInputText />
+                <button class="
+                w-20 rounded-md border border-neutral-400 text-xs cursor-pointer
+                hover:border-neutral-300
+                " (click)="showDialog()">Add</button>
+            </div>
+        </div>
+    </dropdown-layout>
     }
 </div>
+
+<p-dialog header="Add local repository" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <div class="flex flex-col gap-1 mb-4">
+        <label for="username" class="text-sm">Local path</label>
+        <input pInputText placeholder="Repository path" id="username" class="flex-auto" autocomplete="on" />
+    </div>
+    <div class="flex justify-end space-x-3 text-sm">
+        <button (click)="addRepository()" class="px-2 py-1 w-35  rounded-md bg-blue-500">Add repository</button>
+        <button class="bg-neutral-700 w-20 rounded-md px-2 py-1" (click)="visible = false">Cancel</button>
+    </div>
+</p-dialog>

@@ -13,69 +13,33 @@
 
     @if (isOpen) {
     <dropdown-layout [minWidth]="'min-w-[28vw]'" (closeDropDownEvent)="handleCloseDropDownEvent($event)">
-        <div dropdwon-body>
+        <div dropdwon-body class="h-full">
+            <!-- TABS -->
             <div class="w-full">
                 <tabs [tabs]="tabs" [activeTab]="activeTab" (tabChangeEvent)="activeTab=$event"></tabs>
             </div>
-            <div class="w-full py-2">
-                <div class="flex justify-between items-center p-2 bg-neutral-600">
-                    <div class="space-x-1">
-                        <i class="fa-solid fa-code-branch"></i>
-                        <span class="font-normal">feature/s3-ur-changes</span>
-                    </div>
-                    <div>
-                        <span class="text-sm text-slate-200">2 Days ago</span>
-                    </div>
-                </div>
 
-                 <div class="flex justify-between items-center p-2">
-                    <div class="space-x-1">
-                        <i class="fa-solid fa-code-branch"></i>
-                        <span class="font-normal">feature/dashboard-api</span>
-                    </div>
-                    <div>
-                        <span class="text-sm text-slate-200">5 Days ago</span>
-                    </div>
-                </div>
+            <!-- NEW BRANCH -->
+            <div class="w-full flex p-2 justify-between space-x-2">
+                <input type="text" placeholder="Filter" class="w-full h-7 bg-[#303845]" pInputText />
+                <button class="
+                w-35 rounded-md border border-neutral-400 text-xs cursor-pointer
+                hover:border-neutral-300
+                ">New Branch</button>
+            </div>
 
-                <div class="flex justify-between items-center p-2">
-                    <div class="space-x-1">
-                        <i class="fa-solid fa-code-branch"></i>
-                        <span class="font-normal">bug-fix/kickoff-report-email-attachment</span>
-                    </div>
-                    <div>
-                        <span class="text-sm text-slate-200">5 Days ago</span>
-                    </div>
-                </div>
+            <!-- BRANCH LIST -->
+            <div class="w-full py-2 h-[80%] overflow-auto custom-scrollbar">
+                <branch-group [groups]="branchGroups"></branch-group>
+            </div>
 
-                <div class="flex justify-between items-center p-2">
-                    <div class="space-x-1">
-                        <i class="fa-solid fa-code-branch"></i>
-                        <span class="font-normal">bug-fix/kickoff-report-email-attachment</span>
-                    </div>
-                    <div>
-                        <span class="text-sm text-slate-200">5 Days ago</span>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center p-2">
-                    <div class="space-x-1">
-                        <i class="fa-solid fa-code-branch"></i>
-                        <span class="font-normal">bug-fix/kickoff-report-email-attachment</span>
-                    </div>
-                    <div>
-                        <span class="text-sm text-slate-200">5 Days ago</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center p-2">
-                    <div class="space-x-1">
-                        <i class="fa-solid fa-code-branch"></i>
-                        <span class="font-normal">bug-fix/kickoff-report-email-attachment</span>
-                    </div>
-                    <div>
-                        <span class="text-sm text-slate-200">5 Days ago</span>
-                    </div>
-                </div>
+            <!--  -->
+            <div class="w-full p-2">
+                <button class="
+                w-full h-8 rounded-md border border-neutral-400 text-xs cursor-pointer
+                block overflow-hidden whitespace-nowrap text-ellipsis px-2
+                hover:border-neutral-300
+                "><i class="fa-solid fa-code-merge text-sm"></i> Choose a branch to merge into feature/additional-details</button>
             </div>
         </div>
     </dropdown-layout>
