@@ -25,8 +25,9 @@ export const addRepo = (req, res) => {
         return;
     }
 
+    let repository = { name: validate.dirName, path: dirPath.path }
     let newRepo = insertNewRepo({ name: validate.dirName, path: dirPath.path });
-    res.status(200).json({ data: { messgae: 'Repo added to workspace', data: newRepo }, status: 'OK' })
+    res.status(200).json({ data: { messgae: 'Repo added to workspace', data: repository }, status: 'OK' })
 
 }
 

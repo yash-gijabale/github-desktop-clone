@@ -1,13 +1,15 @@
 <div class="w-full p-2 border-b border-b-black space-y-2">
-    <div class="w-full">
-        <span class="block overflow-hidden whitespace-nowrap text-ellipsis font-semibold">
-            Merge pull request #319 from cqra-private-limited/feature/optimization-api
+    <div class="w-full" >
+        <span class="block overflow-hidden whitespace-nowrap text-ellipsis font-semibold"
+        [pTooltip]="commit?.message" tooltipPosition="bottom"
+        >
+            {{commit?.message}}
         </span>
     </div>
     <div class="w-full flex space-x-1.5 items-center text-sm text-slate-300">
         <div class="size-5 rounded-full bg-amber-200"></div>
-        <span>Yash Gijable</span>
+        <span>{{commit?.auther}}</span>
         <i class="fa-solid fa-circle text-[3px]"></i>
-        <span>2 Days ago</span>
+        <span>{{commit?.date | date: 'dd/MM/yyyy'}}</span>
     </div>
 </div>

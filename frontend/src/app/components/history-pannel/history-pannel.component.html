@@ -9,17 +9,9 @@
   [&::-webkit-scrollbar-thumb]:bg-slate-700
   [&::-webkit-scrollbar-thumb]:rounded-full
     ">
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
-        <commit-card></commit-card>
+    @for (log of commitLogs; track $index) {
+        <commit-card [commit]="log"></commit-card>
+    }
     </div>
 
 </div>

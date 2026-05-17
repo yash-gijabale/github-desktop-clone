@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { CheckboxModule } from "primeng/checkbox";
 import { TooltipModule } from 'primeng/tooltip';
+import { IFileChange } from "../../models/common.model";
 
 @Component({
     selector: 'changes-file-card',
@@ -26,7 +27,7 @@ import { TooltipModule } from 'primeng/tooltip';
         pTooltip="src\\main\\java\\com\\cqra\\qa\\repository\\NcBeanSaRepository.java" tooltipPosition="bottom"
          tooltipStyleClass="custom-width-tooltip"
             class="overflow-hidden whitespace-nowrap text-ellipsis min-w-0 block direction-rtl text-left">
-                src\\main\\java\\com\\cqra\\qa\\repository\\NcBeanSaRepository.java
+                {{changedFile.path}}
             </label>
             </div>
             <div class="text-xl text-amber-400">
@@ -39,6 +40,10 @@ import { TooltipModule } from 'primeng/tooltip';
 
     imports: [CheckboxModule, TooltipModule]
 })
-export class ChangedFileCardComponent {
+export class ChangedFileCardComponent implements OnChanges {
 
+    @Input() changedFile: IFileChange;
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(this.changedFile)
+    }
 }

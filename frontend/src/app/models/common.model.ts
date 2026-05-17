@@ -26,5 +26,11 @@ export interface IRepository {
 export interface IRepositoryStore {
     currentRepo: IRepository | null,
     repositories: IRepository[],
-    branches: IBranchGroup[]
+    branches: IBranchGroup[],
+    currentBranch?:IBranch
+}
+
+export interface IFileChange{
+    path:string,
+    status:string
 }

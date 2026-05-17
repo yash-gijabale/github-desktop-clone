@@ -1,11 +1,12 @@
 <div class="w-full h-full relative">
     <div role="button" (click)="toggleDropdown()"
         class="w-full flex justify-between items-center border-r border-r-black h-full px-2 text-white">
-        <div class="flex items-center space-x-2 h-full">
-            <div class=" text-xl"><i class="fa-solid fa-code-branch"></i></div>
-            <div class="flex flex-col justify-center leading-6">
+        <div class="w-[80%] flex items-center space-x-2 h-full">
+            <div class="text-xl"><i class="fa-solid fa-code-branch"></i></div>
+            <div class="w-full flex flex-col justify-center leading-6">
                 <span class="text-neutral-400">Current branch</span>
-                <span class="text-md font-medium">feature/dashbaord-api</span>
+                <span
+                    class="w-full text-md font-medium block overflow-hidden whitespace-nowrap text-ellipsis">{{currentBranch()?.name}}</span>
             </div>
         </div>
         <div><i class="fa-solid fa-caret-down"></i></div>
@@ -30,7 +31,8 @@
 
             <!-- BRANCH LIST -->
             <div class="w-full py-2 h-[80%] overflow-auto custom-scrollbar">
-                <branch-group [groups]="branchGroups"></branch-group>
+                <branch-group [groups]="branchGroups()" [activeBranch]="currentBranch()"
+                    (chnageBranchEvent)="handleChangeBranchEvent($event)"></branch-group>
             </div>
 
             <!--  -->
@@ -39,9 +41,46 @@
                 w-full h-8 rounded-md border border-neutral-400 text-xs cursor-pointer
                 block overflow-hidden whitespace-nowrap text-ellipsis px-2
                 hover:border-neutral-300
-                "><i class="fa-solid fa-code-merge text-sm"></i> Choose a branch to merge into feature/additional-details</button>
+                "><i class="fa-solid fa-code-merge text-sm"></i> Choose a branch to merge into
+                    feature/additional-details</button>
             </div>
         </div>
     </dropdown-layout>
     }
+
+
+    <p-dialog header="Switch Branch" [modal]="true" [(visible)]="visible" [draggable]="false" [resizable]="false"
+        [style]="{ width: '32rem' }">
+        <div class="flex flex-col gap-5">
+            <div class="w-full text-sm">You have chnages on this branch. What would you like to do with them</div>
+            <div class="w-full  items-center border-black rounded-md bg-neutral-700">
+                <div class="w-full flex items-center gap-2 border-b border-b-black p-3">
+                    <div class="flex">
+                        <p-radiobutton name="pizza" value="STASH" [(ngModel)]="isMoveToStash" inputId="ingredient1" />
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-semibold">Leave my changes on {{currentBranch()?.name}}</span>
+                        <span class="text-xs text-slate-200">Your in-progress work will be stashed on this branch for
+                            you to return to later</span>
+                    </div>
+                </div>
+
+                <div class="w-full flex items-center gap-2 border-b border-b-black p-3">
+                    <div class="flex">
+                        <p-radiobutton name="pizza" value="BRING" [(ngModel)]="isMoveToStash" inputId="ingredient2" />
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-semibold">Bring my changes on {{nextBranch && nextBranch.name}}</span>
+                        <span class="text-xs text-slate-200">Your in-progress work will follow you to the new
+                            branch</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end space-x-3 text-sm">
+                <button (click)="changeBranch()" class="px-2 py-1 w-35 rounded-md bg-blue-500">Switch branch</button>
+                <button class="bg-neutral-700 w-20 rounded-md px-2 py-1" (click)="visible = false">Cancel</button>
+            </div>
+
+        </div>
+    </p-dialog>
 </div>

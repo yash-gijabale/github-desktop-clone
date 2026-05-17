@@ -10,10 +10,9 @@
 
     <!-- CHNAGES FILES LIST -->
     <div class="flex w-full flex-col h-[50%] overflow-y-auto">
-        <changes-file-card class="w-full"></changes-file-card>
-        <changes-file-card class="w-full"></changes-file-card>
-        <changes-file-card class="w-full"></changes-file-card>
-        <changes-file-card class="w-full"></changes-file-card>
+        @for (file of changedFiles; track $index) {
+            <changes-file-card class="w-full" [changedFile]="file"></changes-file-card>
+        }
     </div>
 
     <!-- COMMIT AREA -->

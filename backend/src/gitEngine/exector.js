@@ -7,16 +7,16 @@ export const executor = (command) => {
             timeout: 5000,
             maxBuffer: 1024 * 1024
         }, (error, stdout, stderr) => {
+
             if (error) {
-                console.error(`Error: ${error.message}`);
+                console.error(error);
                 return reject(error);
             }
-            if (stderr) {
-                console.error(`Stderr: ${stderr}`);
-                return reject(stderr);
-            }
-            // console.log(stdout)
-            return resolve(stdout)
+
+            resolve({
+                stdout: stdout.trim(),
+                stderr: stderr.trim()
+            });
         });
     })
 }

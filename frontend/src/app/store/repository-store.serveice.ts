@@ -1,99 +1,19 @@
-import { computed, Injectable, signal } from "@angular/core";
-import { IRepository, IRepositoryStore } from "../models/common.model";
+import { computed, inject, Injectable, signal } from "@angular/core";
+import { IBranch, IRepository, IRepositoryStore } from "../models/common.model";
+import { RepositoryApiService } from "../services/respository-api.service";
+import { firstValueFrom } from "rxjs";
 
 @Injectable({
     providedIn: "root"
 })
 export class RepositoryStoreService {
 
+    private repositoryApi = inject(RepositoryApiService)
+
     private _repository = signal<IRepositoryStore>({
         currentRepo: null,
         repositories: [],
-        branches: [
-            {
-                group: 'Default branch',
-                branch: [
-                    {
-                        name: 'feature/additional_details_tab',
-                        lastCommit: '2 Days ago'
-                    }
-                ]
-            },
-            {
-                group: 'Recent branches',
-                branch: [
-                    {
-                        name: 'feature/data-capture-status-report',
-                        lastCommit: '2 Days ago'
-                    },
-                    {
-                        name: 'feature/get-report-users-change',
-                        lastCommit: '3 Days ago'
-                    }
-                ]
-            },
-            {
-                group: 'Other branches',
-                branch: [
-                    {
-                        name: 'bugfix/edit-record-changes',
-                        lastCommit: '2 Days ago'
-                    },
-                    {
-                        name: 'feature/create-user-contractor-change',
-                        lastCommit: '3 Days ago'
-                    },
-                    {
-                        name: 'bugfix/edit-record-changes',
-                        lastCommit: '2 Days ago'
-                    },
-                    {
-                        name: 'feature/create-user-contractor-change',
-                        lastCommit: '3 Days ago'
-                    },
-                    {
-                        name: 'bugfix/edit-record-changes',
-                        lastCommit: '2 Days ago'
-                    },
-                    {
-                        name: 'feature/create-user-contractor-change',
-                        lastCommit: '3 Days ago'
-                    },
-                    {
-                        name: 'bugfix/edit-record-changes',
-                        lastCommit: '2 Days ago'
-                    },
-                    {
-                        name: 'feature/create-user-contractor-change',
-                        lastCommit: '3 Days ago'
-                    },
-                    {
-                        name: 'bugfix/edit-record-changes',
-                        lastCommit: '2 Days ago'
-                    },
-                    {
-                        name: 'feature/create-user-contractor-change',
-                        lastCommit: '3 Days ago'
-                    },
-                    {
-                        name: 'bugfix/edit-record-changes',
-                        lastCommit: '2 Days ago'
-                    },
-                    {
-                        name: 'feature/create-user-contractor-change',
-                        lastCommit: '3 Days ago'
-                    },
-                    {
-                        name: 'bugfix/edit-record-changes',
-                        lastCommit: '2 Days ago'
-                    },
-                    {
-                        name: 'feature/create-user-contractor-change',
-                        lastCommit: '3 Days ago'
-                    }
-                ]
-            }
-        ]
+        branches:[]
     });
 
     readonly repository = computed(
@@ -102,6 +22,14 @@ export class RepositoryStoreService {
 
     readonly branches = computed(
         () => this._repository().branches
+    )
+
+    readonly currentRepository = computed(
+        () => this._repository().currentRepo
+    )
+
+    readonly currentBranch = computed(
+        () => this._repository().currentBranch
     )
 
     setCurrentRepository(selectedRepo: IRepository) {
@@ -113,11 +41,59 @@ export class RepositoryStoreService {
         })
     }
 
+    setRepositories(repos: IRepository[]) {
+        this._repository.update(state => ({
+            ...state,
+            repositories: repos,
+        }))
+    }
+
     addRepository(repository: IRepository) {
         this._repository.update(state => ({
             currentRepo: repository,
             repositories: [...state.repositories, repository],
-            branches:[]
+            branches: []
+        }))
+    }
+
+    async selectRepository(repo: IRepository) {
+
+        // update selected repo immediately
+        this._repository.update(state => ({
+            ...state,
+            currentRepo: repo
+        }));
+
+        // fetch branches
+        console.log(repo.path)
+        let currentBranch: IBranch | null = null;
+        const response: any =
+            await firstValueFrom(this.repositoryApi.getBranchOfCurrentRepo(repo.path));
+        let branches: IBranch[] = response?.data?.branches?.map((branch: any) => {
+            if (branch.isCurrent) {
+                currentBranch = { name: branch.name, lastCommit:branch.createdOn }
+            }
+            return {
+                name: branch.name,
+                lastCommit: branch.createdOn
+            }
+        })
+
+        if(currentBranch){
+            this.setCurrentBranch(currentBranch);
+        }
+
+        // update branches
+        this._repository.update(state => ({
+            ...state,
+            branches: [{ group: 'Other beanches', branch: branches }]
+        }));
+    }
+
+    setCurrentBranch(branch: IBranch) {
+        this._repository.update(state => ({
+            ...state,
+            currentBranch: branch
         }))
     }
 

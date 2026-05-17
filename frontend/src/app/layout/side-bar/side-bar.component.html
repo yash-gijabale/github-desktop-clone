@@ -6,7 +6,8 @@
 
     <!-- CONTENTS -->
     <div class="w-full h-[calc(100%-2.5rem)]">
-        @if (activeTab=='CHANGES') {<changes-pannel></changes-pannel>}
-        @if (activeTab=='HISTORY') {<history-pannel></history-pannel>}
+        @if (activeTab=='CHANGES') {<changes-pannel [currentRepository]="currentReposotory()"></changes-pannel>}
+        @if (activeTab=='HISTORY') {<history-pannel [currentRepository]="currentReposotory()"
+            [currentBranch]="currentBranch()"></history-pannel>}
     </div>
 </div>
