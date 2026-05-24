@@ -30,7 +30,7 @@ export class SideBarComoponent {
         {
             title: 'Changes',
             value: 'CHANGES',
-            subTitle: 2
+            // subTitle: 2
         },
 
         {

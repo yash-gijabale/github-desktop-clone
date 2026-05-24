@@ -8,7 +8,8 @@ export interface IBranch {
     name: string,
     isSelected?: boolean,
     lastCommit: string,
-    isDefault?: boolean
+    isDefault?: boolean,
+    displayTime?:string
 }
 
 export interface IBranchGroup {

@@ -13,7 +13,7 @@ export class RepositoryStoreService {
     private _repository = signal<IRepositoryStore>({
         currentRepo: null,
         repositories: [],
-        branches:[]
+        branches: []
     });
 
     readonly repository = computed(
@@ -71,22 +71,31 @@ export class RepositoryStoreService {
             await firstValueFrom(this.repositoryApi.getBranchOfCurrentRepo(repo.path));
         let branches: IBranch[] = response?.data?.branches?.map((branch: any) => {
             if (branch.isCurrent) {
-                currentBranch = { name: branch.name, lastCommit:branch.createdOn }
+                currentBranch = { name: branch.name, lastCommit: branch.createdOn }
             }
             return {
                 name: branch.name,
-                lastCommit: branch.createdOn
+                lastCommit: branch.createdOn,
+                displayTime: branch.displayTime
             }
         })
 
-        if(currentBranch){
+        let defaultBranchBranch: IBranch = {
+            name: response?.data?.defaultBranch,
+            lastCommit: ''
+        }
+
+        if (currentBranch) {
             this.setCurrentBranch(currentBranch);
         }
 
         // update branches
         this._repository.update(state => ({
             ...state,
-            branches: [{ group: 'Other beanches', branch: branches }]
+            branches: [
+                { group: 'Default Branch', branch: [defaultBranchBranch] },
+                { group: 'Other beanches', branch: branches }
+            ]
         }));
     }
 

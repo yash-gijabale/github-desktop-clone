@@ -5,33 +5,17 @@ import { exec, execFile } from 'child_process';
 
 export const getBranches = async (repo) => {
     let command = ['-C', repo, 'branch', '--sort=-committerdate', '--format=%(HEAD) %(committerdate:short) %(refname:short)', '-a']
-    // const localBranches = await executor([
-    //     '-C',
-    //     repo,
-    //     'for-each-ref',
-    //     '--format=%(refname:short)',
-    //     'refs/heads'
-    // ]);
+    let defaultBranchCommand = ['-C', repo, 'symbolic-ref', '--short', 'refs/remotes/origin/HEAD'];
 
-    // const remoteBranches = await executor([
-    //     '-C',
-    //     repo,
-    //     'for-each-ref',
-    //     '--format=%(refname:short)',
-    //     'refs/remotes'
-    // ]);
+    let defaultBranch = await executor(defaultBranchCommand);
+    let otherbranches = await executor(command);
 
-    // const localSet = new Set(
-    //     localBranches.stdout.split('\n').map(b => b.trim())
-    // );
-
-    // const filteredRemote = remoteBranches.stdout
-    //     .split('\n')
-    //     .map(b => b.replace('origin/', '').trim())
-    //     .filter(b => b && !localSet.has(b));
-
-    // return filteredRemote;
-    return await executor(command);
+    return {
+        stdout: {
+            defaultBranch: defaultBranch.stdout,
+            otherbranches: otherbranches.stdout
+        }
+    }
 
 }
 

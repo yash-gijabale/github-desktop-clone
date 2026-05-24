@@ -1,11 +1,16 @@
 import { getBranches, getGitLogs, getGitStatus, gitCheckout } from "../gitEngine/engine.js";
 import gitEngineService from "../services/gitEngine-service.js";
+import moment from 'moment'
 
 export const getReposBranch = async (req, res) => {
     let repo = req.query.repo;
     let branches = await getBranches(repo);
+
     let original = branches.stdout;
-    branches = original
+
+    let defaultBranch = original.defaultBranch;
+
+    branches = original.otherbranches
         .split('\n')
         .map(branch => branch.trim())
         .filter(Boolean)
@@ -22,6 +27,7 @@ export const getReposBranch = async (req, res) => {
             return {
                 name,
                 createdOn,
+                displayTime: moment(createdOn, "YYYYMMDD").fromNow(),
                 isCurrent,
                 isRemote: name.startsWith("origin/")
             };
@@ -32,7 +38,7 @@ export const getReposBranch = async (req, res) => {
             return a.isRemote ? 1 : -1;
         });
     let current = branches.find(branch => branch.isCurrent);
-    return res.status(200).json({ status: 'OK', data: { branches, current, count: branches.length, repo } })
+    return res.status(200).json({ status: 'OK', data: { branches, current, defaultBranch, count: branches.length, repo } })
 }
 
 

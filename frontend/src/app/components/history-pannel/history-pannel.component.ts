@@ -34,7 +34,7 @@ export class HistoryPannelComponent {
 
 
     getCommitLogs() {
-        if (this.currentRepository) {
+        if (this.currentRepository && this.currentBranch) {
             this.repositoryApi.getCommitLogs(this.currentRepository?.path, this.currentBranch.name)
                 .subscribe(res => {
                     this.commitLogs = res.data.result;

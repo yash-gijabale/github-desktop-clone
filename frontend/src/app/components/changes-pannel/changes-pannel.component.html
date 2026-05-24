@@ -4,7 +4,7 @@
         <input type="text" placeholder="Filter" class="w-full bg-[#303845]" pInputText [(ngModel)]="searchFiles" />
         <div class="flex items-center">
             <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
-            <label for="ingredient1" class="ml-2"> 2 changed files </label>
+            <label for="ingredient1" class="ml-2"> {{changedFiles.length}} changed files </label>
         </div>
     </div>
 
